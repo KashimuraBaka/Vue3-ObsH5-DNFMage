@@ -1,7 +1,7 @@
 import { GetAseetsBytes } from '@/utils/buffer';
 import { Buffer } from 'buffer';
 
-import type { GifFrame, GifValue } from './@Gif';
+import type { GifFrame, GifValue } from './types';
 
 class Stream {
   public buff = Buffer.alloc(0);
@@ -9,9 +9,7 @@ class Stream {
   public length = 0;
 
   /** 读取字节 */
-  get bytes() {
-    return this.buff.readUIntBE(this.index++, 1);
-  }
+  get bytes() { return this.buff.readUIntBE(this.index++, 1); }
 
   public string(len: number) {
     return this.buff.toString('utf-8', this.index, this.index += len);
