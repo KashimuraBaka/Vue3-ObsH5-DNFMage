@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, computed, onUnmounted } from 'vue'
-import { MageModel } from '@/components/MageModels/lib/MageModel.ts'
+import { MageModel } from './lib/MageModel'
 
 const args = defineProps<{
   modelValue: {
