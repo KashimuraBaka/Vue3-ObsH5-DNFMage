@@ -30,6 +30,7 @@ export class MageCanvas {
     return this.mageAction;
   }
   set MageAction(val: MageAnimalsKey) {
+    callback('action', val);
     this.mageAction = val;
   }
 
