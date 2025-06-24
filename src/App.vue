@@ -40,7 +40,7 @@ if (serverUrl) {
         isface: false,
         msg: h(Fragment, {}, [
           '感谢 ',
-          h('a', { style: { color: '#73a1ff' } }, gift.anchor_info.uname),
+          h('a', { style: { color: '#73a1ff' } }, gift.uname),
           ' 送的 ',
           gift.gift_name,
         ]),
