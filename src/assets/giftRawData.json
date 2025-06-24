@@ -1,0 +1,42 @@
+{
+  "data": {
+    "uid": 0,
+    "uname": "Kashimura",
+    "uface": "https://i2.hdslb.com/bfs/face/de0cc00815d43f4171946f8cb70cd7ac3aab7abd.jpg",
+    "gift_id": 31036,
+    "gift_name": "小花花",
+    "gift_num": 1,
+    "price": 100,
+    "paid": true,
+    "fans_medal_level": 0,
+    "fans_medal_name": "",
+    "fans_medal_wearing_status": false,
+    "guard_level": 0,
+    "timestamp": 1750737006,
+    "anchor_info": {
+      "uface": "https://i2.hdslb.com/bfs/face/9d2be50780bd333d8cfc009e19cc380c42c871ac.jpg",
+      "uid": 0,
+      "uname": "䊜㱺",
+      "union_id": "",
+      "open_id": "82eb87aac8b94b12adcf865b6a1c1a53"
+    },
+    "gift_icon": "https://s1.hdslb.com/bfs/live/8b40d0470890e7d573995383af8a8ae074d485d9.png",
+    "combo_gift": true,
+    "combo_info": {
+      "combo_base_num": 1,
+      "combo_count": 1,
+      "combo_id": "batch:gift:combo_id:4198010:96924743:31036:1750737006.9760",
+      "combo_timeout": 5
+    },
+    "union_id": "",
+    "open_id": "4af6c9b076ad447093ddd889ac434f4c",
+    "r_price": 100,
+    "blind_gift": {
+      "status": false,
+      "blind_gift_id": 0
+    },
+    "msg_id": "46003000-c8ac-4f0d-952f-5264ab147449",
+    "room_id": 8464461
+  },
+  "cmd": "LIVE_OPEN_PLATFORM_SEND_GIFT"
+}

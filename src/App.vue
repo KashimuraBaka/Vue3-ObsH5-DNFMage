@@ -1,85 +1,79 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { h, Fragment } from 'vue'
+import { GetRandomInt } from '@/utils/'
+import { DanmakuClient } from './utils/Danmaku/DanmakuClient'
+import MageNPC from './components/MageModels/MageBox.vue'
+
+import type { MageActionOptions } from './components/MageModels/@Mage'
+
+const mage: Array<InstanceType<typeof MageNPC>> = []
+const getref = (el: any) => mage.push(el)
+
+// 获取查询字符串
+const URLObj = new URLSearchParams(window.location.search)
+// 魔界人数量
+const num = parseInt(URLObj.get('num') || '1')
+// 设置缩放
+document.body.setAttribute('style', `zoom: ${parseFloat(URLObj.get('zoom') || '100') / 100}`)
+// 服务器地址
+const serverUrl = URLObj.get('danmuji_url')
+
+if (serverUrl) {
+  const client = new DanmakuClient(serverUrl)
+  client.OnReciveDanmu = (data) => {
+    SendRandomMage(
+      'idle',
+      {
+        name: data.uname,
+        isface: false,
+        msg: data.msg,
+        level: String(data.guard_level),
+      },
+      5000,
+    )
+  }
+  client.OnSendGift = (gift) => {
+    SendRandomMage(
+      'dance',
+      {
+        name: '猪头',
+        isface: false,
+        msg: h(Fragment, {}, [
+          '感谢 ',
+          h('a', { style: { color: '#73a1ff' } }, gift.anchor_info.uname),
+          ' 送的 ',
+          gift.gift_name,
+        ]),
+        level: '??',
+      },
+      5000,
+    )
+  }
+}
+
+/**
+ * 随机向魔界人发送动作信息
+ * @param action 动作动画
+ * @param options 配置信息
+ * @param delay 持续时间
+ */
+function SendRandomMage(action: string, options: MageActionOptions, delay: number) {
+  const randnum = GetRandomInt(0, num - 1)
+  mage[randnum].doing(action, options, delay)
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <MageNPC v-for="count in num" :key="count" :ref="getref" :actionlist="['idle', 'seat', 'lie']" />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+<style lang="scss">
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  // background-color: royalblue;
 }
 </style>
