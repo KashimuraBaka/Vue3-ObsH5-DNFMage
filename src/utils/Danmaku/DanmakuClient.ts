@@ -18,7 +18,6 @@ export class DanmakuClient {
       this.ws = new WebSocket(`ws://${this.ws_url}`);
       this.ws.onmessage = (e) => {
         const data = JSON.parse(e.data) as DanmakuResponse;
-        console.log(data);
         this.OnMessage?.(data);
         switch (data.cmd) {
           case 'LIVE_OPEN_PLATFORM_DM':
