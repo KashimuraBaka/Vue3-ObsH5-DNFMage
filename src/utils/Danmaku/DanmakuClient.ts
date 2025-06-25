@@ -14,24 +14,31 @@ export class DanmakuClient {
   }
 
   private Connect() {
-    this.ws = new WebSocket(`ws://${this.ws_url}`);
-    this.ws.onmessage = (e) => {
-      const data = JSON.parse(e.data) as DanmakuResponse;
-      console.log(data);
-      this.OnMessage?.(data);
-      switch (data.cmd) {
-        case 'LIVE_OPEN_PLATFORM_DM':
-          this.OnReciveDanmu?.(data.data as DanmakuMessage);
-          break;
-        case 'LIVE_OPEN_PLATFORM_SEND_GIFT':
-          this.OnSendGift?.(data.data as GiftMessage);
-          break;
+    try {
+      this.ws = new WebSocket(`ws://${this.ws_url}`);
+      this.ws.onmessage = (e) => {
+        const data = JSON.parse(e.data) as DanmakuResponse;
+        console.log(data);
+        this.OnMessage?.(data);
+        switch (data.cmd) {
+          case 'LIVE_OPEN_PLATFORM_DM':
+            this.OnReciveDanmu?.(data.data as DanmakuMessage);
+            break;
+          case 'LIVE_OPEN_PLATFORM_SEND_GIFT':
+            this.OnSendGift?.(data.data as GiftMessage);
+            break;
+        }
+        if (data.cmd == "LIVE_OPEN_PLATFORM_DM") {
+        }
       }
-      if (data.cmd == "LIVE_OPEN_PLATFORM_DM") {
-      }
+      this.ws.onclose = () => this.ReConnect(5000);
     }
-    this.ws.onclose = () => {
-      setTimeout(this.Connect, 5000);
+    catch {
+      this.ReConnect(5000);
     }
+  }
+
+  private ReConnect(time: number) {
+    setTimeout(this.Connect.bind(this), time);
   }
 }
