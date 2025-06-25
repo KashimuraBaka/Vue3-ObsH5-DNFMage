@@ -6,8 +6,3 @@ export const GetAseetsBytes = async (url: string) => {
   ).then(res => res.data
   ).catch(() => new ArrayBuffer(0));
 }
-
-/** 整数转十六进制 */
-export const toHex = (value: number) => {
-  return value.toString(16).toUpperCase();
-}
