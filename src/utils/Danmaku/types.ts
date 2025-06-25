@@ -9,11 +9,13 @@ export interface DanmakuMessage {
   uid: number
   uname: string
   uface: string
+  uface_data: string
   guard_level: number
   msg_id: string
   msg: string
   room_id: number
   emoji_img_url: string
+  emoji_img_data: string
   fans_medal_level: number
   fans_medal_name: string
   fans_medal_wearing_status: boolean
