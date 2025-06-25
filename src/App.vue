@@ -21,12 +21,13 @@ const serverUrl = URLObj.get('danmuji_url')
 if (serverUrl) {
   const client = new DanmakuClient(serverUrl)
   client.OnReciveDanmu = (data) => {
+    const isface = data.emoji_img_url != ''
     SendRandomMage(
       'idle',
       {
         name: data.uname,
-        isface: false,
-        msg: data.msg,
+        isface: isface,
+        msg: isface ? data.emoji_img_data : data.msg,
         level: String(data.guard_level),
       },
       5000,
